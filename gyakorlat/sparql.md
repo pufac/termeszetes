@@ -130,3 +130,24 @@ WHERE {
 1.  **Pont a sor végén:** Minden állítás végét ponttal (`.`) kell lezárni a `WHERE`-ben (kivéve az utolsót, ott nem kötelező, de nem árt).
 2.  **Prefix hiánya:** Ha azt írod `E21_Person`, a gép nem érti. Vagy írd ki a teljes `<http://.../E21_Person>` címet, vagy definiáld a PREFIX-et az elején.
 3.  **Változónevek:** A `?` kötelező. A `?s`, `?p`, `?o` csak szokás, írhatsz `?kiscica`-t is, ha konzisztensen használod.
+
+## szamok filter stb
+```sparql
+PREFIX ft: <http://www.co-ode.org/roberts/family-tree.owl#>
+
+SELECT ?nev ?szuletesi_ev
+WHERE {
+  ?nev ft:hasBirthYear ?szuletesi_ev .
+  FILTER (?szuletesi_ev >= 1801 && ?szuletesi_ev <= 1900)
+}
+```
+
+## nagymama
+```sparql
+PREFIX ft: <http://www.co-ode.org/roberts/family-tree.owl#>
+
+SELECT ?nagymama ?unoka
+WHERE {
+  ?nagymama ft:isGrandmotherOf ?unoka .
+}
+```
